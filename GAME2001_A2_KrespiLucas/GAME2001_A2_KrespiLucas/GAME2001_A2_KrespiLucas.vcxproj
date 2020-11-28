@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DoublyLinkedList.h" />
+    <ClInclude Include="PriorityQueue.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DoublyLinkedList.cpp" />

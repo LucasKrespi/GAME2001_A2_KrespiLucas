@@ -1,29 +1,35 @@
 #include <iostream>
-#include "DoublyLinkedList.h"
-
+#include "PriorityQueue.h"
+using namespace std;
 
 int main() {
 	std::cout << "TEST 01" << std::endl;
 
-	LinkedList<int> Test;
+	const int SIZE = 9;
+	PriorityQueue<int> TestQ(SIZE);
 
-	Test.Push(1);
-	Test.Pop();
-	Test.Push(2);
-	Test.Push(3);
-	Test.Push(4);
-	Test.Push_Front(450);
-	Test.Push_Front(5);
-	Test.Pop_Front();
-
-	LinkIterator<int> it;
-
-	for (it = Test.Begin(); it != Test.End(); it++)
+	for (int i = 0; i < SIZE; i++)
 	{
-		std::cout << " " << *it << std::endl;
+		TestQ.push(10 + i);
 	}
 
-	
+	cout << "Test Queue (Size = " << TestQ.getSize() << " ): " << endl;
+
+	while (TestQ.isEmpty()==false)
+	{
+		cout << " " << TestQ.front();
+		TestQ.pop();
+	}
+
+	if (TestQ.isEmpty())
+	{
+		cout << " \n The QUEUE is Empity \n";
+	}
+	else 
+	{
+		cout << " \n The QUEUE is NOT Empity \n";
+	}
+
 
 	return 0;
 }
