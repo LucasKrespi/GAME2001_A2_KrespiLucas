@@ -2,25 +2,48 @@
 
 #include "DoublyLinkedList.h"
 
-template<class T>
+template <class T, class CMP>
 class PriorityQueue
 {
 public:
 	PriorityQueue(int size)
 	{
 		assert(size > 0);
-		m_size = size; 
-
+		m_size = size;
 	}
-	~PriorityQueue()
-	{}
+	~PriorityQueue() {}
 
-	//---------------Functions----------------
 	void push(T val)
 	{
-		if (m_elements.GetSize() < m_size)
+		assert(m_elements.GetSize() < m_size);
+
+		if (m_elements.GetSize() == 0)
 		{
 			m_elements.Push(val);
+		}
+		else
+		{
+			LinkIterator<T> it;
+			it = m_elements.Begin();
+
+			CMP cmp;
+
+			while (it.isValid())
+			{
+				if (cmp(val, *it))
+				{
+					break;
+				}
+				it++;
+			}
+			if (it.isValid())
+			{
+				m_elements.Insert_Before(it, val);
+			}
+			else
+			{
+				m_elements.Push(val);
+			}
 		}
 	}
 	void pop()
@@ -41,6 +64,7 @@ public:
 
 		return *it;
 	}
+	//Helpers
 	int getSize()
 	{
 		return m_elements.GetSize();
@@ -58,7 +82,10 @@ public:
 		assert(size > 0);
 		m_size = size;
 	}
+
 private:
+
 	LinkedList<T> m_elements;
 	int m_size;
+
 };

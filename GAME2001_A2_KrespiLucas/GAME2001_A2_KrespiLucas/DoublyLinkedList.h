@@ -25,6 +25,8 @@ template <class T>
 class LinkIterator
 {
 public:
+	friend class LinkedList<T>;
+
 	LinkIterator()
 	{
 		m_node = NULL;
@@ -109,6 +111,58 @@ public:
 		return m_lastNode;
 	}
 	// ------------------- END POSITION FUNCTIONS ------------------------
+	//--------------------Priority queue functions -----------------------
+	void Insert_Before(LinkIterator<T>& it, T newData)
+	{
+		assert(it.m_node != NULL);
+
+		LinkNode<T>* node = new LinkNode<T>;
+		assert(node != NULL);
+
+		node->m_data = newData;
+		node->m_next = it.m_node;
+		node->m_previous = it.m_node->m_previous;
+
+		if (node->m_previous != NULL)
+		{
+			node->m_previous->m_next = node;
+		}
+
+		it.m_node->m_previous = node;
+
+		if (it.m_node == m_root)
+		{
+			m_root = node;
+		}
+
+		m_size++;
+
+	}
+	void Insert_After(LinkIterator<T>& it, T newData)
+	{
+		assert(it.m_node != NULL);
+
+		LinkNode<T> node = new LinkNode<T>;
+		assert(node != NULL);
+
+		node->m_data = newData;
+		node->m_next = it.m_node->m_next;
+		node->m_previous = it.m_node;
+
+		if (node->m_next == NULL)
+		{
+			node->m_next->m_previous = node;
+		}
+
+		it.m_node->m_next = node;
+
+		if (it.m_node == m_lastNode)
+		{
+			m_lastNode = node;
+		}
+
+		m_size++;
+	}
 	// ------------------- LINKED LIST OPERATIONS ------------------------
 	void Push_Front(T newData)
 	{

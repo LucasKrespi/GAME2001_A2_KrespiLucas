@@ -26,6 +26,9 @@
     <ClInclude Include="DoublyLinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dqueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="PriorityQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
