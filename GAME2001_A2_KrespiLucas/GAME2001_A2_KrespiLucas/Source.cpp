@@ -45,8 +45,8 @@ public:
 class NetworkMessage
 {
 public:
-	NetworkMessage() : m_priority(0), m_id(0) {}
-	NetworkMessage(int p, int id) : m_priority(p), m_id(id) {}
+	NetworkMessage() : m_priority(0), m_Data(0) {}
+	NetworkMessage(int p, int Data) : m_priority(p), m_Data(Data) {}
 	~NetworkMessage() {}
 
 	int GetPriority()
@@ -55,7 +55,7 @@ public:
 	}
 	int GetID()
 	{
-		return m_id;
+		return m_Data;
 	}
 	// Overload operators
 	bool operator<(NetworkMessage& m)
@@ -65,11 +65,6 @@ public:
 		{
 			return true;
 		}
-		else if (m_id < m.GetID())
-		{
-			return true;
-		}
-
 		return false;
 	}
 	bool operator>(NetworkMessage& m)
@@ -78,20 +73,26 @@ public:
 	}
 private:
 	int m_priority;
-	int m_id;
+	int m_Data;
 };
 
 int main()
 {
 	cout << "Priority queue data structure example!" << endl << endl;
 
-	const int SIZE = 4;
+	const int SIZE = 10;
 	PriorityQueue<NetworkMessage, less_cmp<NetworkMessage> > que(SIZE);
 
-	que.push(NetworkMessage(3, 100));
-	que.push(NetworkMessage(2, 286));
-	que.push(NetworkMessage(1, 362));
-	que.push(NetworkMessage(3, 435));
+	que.push(NetworkMessage(3, 1));
+	que.push(NetworkMessage(2, 2));
+	que.push(NetworkMessage(1, 7));
+	que.push(NetworkMessage(3, 4));
+	que.push(NetworkMessage(4, 5));
+	que.push(NetworkMessage(5, 6));
+	que.push(NetworkMessage(1, 3));
+	que.push(NetworkMessage(2, 8));
+	que.push(NetworkMessage(4, 9));
+	que.push(NetworkMessage(5, 10));
 
 	// Display the priority queue
 	cout << "Priority queue content (Size - " << que.getSize() << ") : " << endl;
@@ -99,7 +100,8 @@ int main()
 	while (que.isEmpty() == false)
 	{
 		cout << "   Priority: " << que.front().GetPriority();
-		cout << "   ID: " << que.front().GetID();
+		cout << "   Data: " << que.front().GetID();
+		cout << "   List Size: " << que.getSize();
 		cout << endl;
 
 		que.pop();
